@@ -1,0 +1,35 @@
+{
+  "budgets": {
+    "minActionsPerSecond": 100,
+    "maxP99Ms": 100,
+    "maxStartupMs": 2000,
+    "maxWatchRefreshMs": 1000
+  },
+  "result": {
+    "bun": "1.4.4",
+    "platform": "linux",
+    "arch": "x64",
+    "storage": "temporary local directory, WAL, synchronous=FULL",
+    "mutations": 500,
+    "actionsPerSecond": 330.082,
+    "latencyMs": {
+      "p50": 2.822,
+      "p99": 9.374
+    },
+    "startupMs": 0.674,
+    "watches": [
+      {
+        "subscriptions": 1,
+        "refreshMs": 58.881
+      },
+      {
+        "subscriptions": 10,
+        "refreshMs": 54.425
+      },
+      {
+        "subscriptions": 100,
+        "refreshMs": 59.525
+      }
+    ]
+  }
+}

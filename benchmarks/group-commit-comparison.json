@@ -1,0 +1,76 @@
+{
+  "method": "Same 500-action workload and host; 64 concurrent HTTP clients; WAL and synchronous=FULL for both runtimes. Sequential calls are reported separately.",
+  "before": {
+    "bun": "1.4.4",
+    "platform": "linux",
+    "arch": "x64",
+    "storage": "temporary local directory, WAL, synchronous=FULL",
+    "mutations": 500,
+    "actionsPerSecond": 335.238,
+    "latencyMs": {
+      "p50": 2.757,
+      "p99": 7.925
+    },
+    "concurrent": {
+      "clients": 64,
+      "mutations": 500,
+      "actionsPerSecond": 325.732,
+      "latencyMs": {
+        "p50": 169.496,
+        "p99": 344.095
+      }
+    },
+    "startupMs": 0.784,
+    "watches": [
+      {
+        "subscriptions": 1,
+        "refreshMs": 41.49
+      },
+      {
+        "subscriptions": 10,
+        "refreshMs": 53.397
+      },
+      {
+        "subscriptions": 100,
+        "refreshMs": 59.393
+      }
+    ]
+  },
+  "after": {
+    "bun": "1.4.4",
+    "platform": "linux",
+    "arch": "x64",
+    "storage": "temporary local directory, WAL, synchronous=FULL",
+    "mutations": 500,
+    "actionsPerSecond": 324.626,
+    "latencyMs": {
+      "p50": 2.846,
+      "p99": 9.236
+    },
+    "concurrent": {
+      "clients": 64,
+      "mutations": 500,
+      "actionsPerSecond": 7180.434,
+      "latencyMs": {
+        "p50": 7.659,
+        "p99": 12.18
+      }
+    },
+    "startupMs": 0.817,
+    "watches": [
+      {
+        "subscriptions": 1,
+        "refreshMs": 47.129
+      },
+      {
+        "subscriptions": 10,
+        "refreshMs": 55.265
+      },
+      {
+        "subscriptions": 100,
+        "refreshMs": 59.695
+      }
+    ]
+  },
+  "concurrentSpeedup": 22.04
+}

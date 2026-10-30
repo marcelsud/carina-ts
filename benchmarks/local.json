@@ -1,0 +1,36 @@
+{
+  "bun": "1.4.4",
+  "platform": "linux",
+  "arch": "x64",
+  "storage": "temporary local directory, WAL, synchronous=FULL",
+  "mutations": 500,
+  "actionsPerSecond": 324.626,
+  "latencyMs": {
+    "p50": 2.846,
+    "p99": 9.236
+  },
+  "concurrent": {
+    "clients": 64,
+    "mutations": 500,
+    "actionsPerSecond": 7180.434,
+    "latencyMs": {
+      "p50": 7.659,
+      "p99": 12.18
+    }
+  },
+  "startupMs": 0.817,
+  "watches": [
+    {
+      "subscriptions": 1,
+      "refreshMs": 47.129
+    },
+    {
+      "subscriptions": 10,
+      "refreshMs": 55.265
+    },
+    {
+      "subscriptions": 100,
+      "refreshMs": 59.695
+    }
+  ]
+}

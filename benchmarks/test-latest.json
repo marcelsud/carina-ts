@@ -1,0 +1,45 @@
+{
+  "budgets": {
+    "minActionsPerSecond": 100,
+    "minConcurrentActionsPerSecond": 500,
+    "maxP99Ms": 100,
+    "maxStartupMs": 2000,
+    "maxWatchRefreshMs": 1000
+  },
+  "result": {
+    "bun": "1.4.4",
+    "platform": "linux",
+    "arch": "x64",
+    "storage": "temporary local directory, WAL, synchronous=FULL",
+    "mutations": 500,
+    "actionsPerSecond": 329.245,
+    "latencyMs": {
+      "p50": 2.202,
+      "p99": 24.394
+    },
+    "concurrent": {
+      "clients": 64,
+      "mutations": 500,
+      "actionsPerSecond": 5085.835,
+      "latencyMs": {
+        "p50": 9.06,
+        "p99": 30.743
+      }
+    },
+    "startupMs": 0.668,
+    "watches": [
+      {
+        "subscriptions": 1,
+        "refreshMs": 26.107
+      },
+      {
+        "subscriptions": 10,
+        "refreshMs": 54.973
+      },
+      {
+        "subscriptions": 100,
+        "refreshMs": 108.065
+      }
+    ]
+  }
+}

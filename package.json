@@ -1,0 +1,18 @@
+{
+  "name": "carina",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts", "./client": "./src/client.ts" },
+  "bin": { "carina": "./src/cli.ts" },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "build:example": "bun src/cli.ts build examples/shop --out dist/shop",
+    "benchmark": "bun scripts/benchmark.ts",
+    "benchmark:test": "bun test tests/performance.test.ts"
+  },
+  "dependencies": { "effect": "^3.19.0" },
+  "devDependencies": { "@types/bun": "^1.4.4", "typescript": "^5.9.3" },
+  "engines": { "bun": ">=1.4.4" }
+}
