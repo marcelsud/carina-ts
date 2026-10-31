@@ -1,6 +1,6 @@
 # State and actions
 
-An actor owns state validated by an Effect Schema. Its type and key identify an instance: `product` and `sku-1`, for example. Actions receive mutable state and validated input, then return a JSON reply.
+**TL;DR:** Keep state and the rules for changing it together. Each actor is identified by its type and key; synchronous actions validate inputs, mutate state, and return JSON replies. A failed action rolls back its state changes and outgoing messages. Public actions accept client calls; internal actions accept actor messages.
 
 For the Hiking Boot, the product actor is the place that decides whether a reservation can reduce stock. Every request for that product goes through the same rules. When two orders compete for the last pair, their reservation actions run sequentially against the updated state, so each action checks the stock left by the previous one.
 

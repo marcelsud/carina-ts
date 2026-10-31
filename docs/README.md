@@ -1,6 +1,6 @@
 # Carina documentation
 
-Carina runs typed actors, durable messages, and reactive SQL queries in one executable backed by one SQLite database. An actor is identified by its type and key, owns validated state, and exposes actions that change that state.
+**TL;DR:** Build stateful services with typed actors, durable messages, and reactive SQL queries in one executable and one SQLite database. Actors enforce business rules, messages preserve work across restarts, and upgrades keep existing data readable as your model evolves. Development and builds require Bun 1.4.4 or newer.
 
 Consider a shop selling a Hiking Boot. The product tracks available stock, an order tracks a customer's reservation, and the storefront needs to show both as they change. Carina gives each part a place: actors own the business rules, durable messages carry work between them, and queries provide the views clients need.
 

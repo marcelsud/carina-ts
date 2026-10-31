@@ -1,6 +1,6 @@
 # TypeScript client
 
-The client derives actor methods, input types, replies, and queries from your service type. When you change the shop's public action inputs, TypeScript can point out client calls that need to change too. Schema validation at the service boundary checks the values that actually arrive.
+**TL;DR:** Call actors and queries with types derived from your service, and watch results through async iterators. The client handles authentication and retries network failures with the same request key. Supply a stable idempotency key across separate calls or application restarts. HTTP errors, including overload `503`, are surfaced for your application to handle.
 
 These snippets use the repository's [shop service](../examples/shop/index.ts); paths are relative to a client file in `examples/`.
 

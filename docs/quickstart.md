@@ -1,6 +1,6 @@
 # Quickstart
 
-Run a shop service, reserve a Hiking Boot through actor messages, and watch the order complete.
+**TL;DR:** Run a complete shop locally: create a Hiking Boot, reserve two units through actor messages, and watch the order complete. You need Bun 1.4.4 or newer. The development server uses `127.0.0.1:7070` and access key `dev` by default; data persists in `./data`.
 
 The product begins with 10 units in stock. An order asks for two, the product decides whether it can reserve them, and the order records the answer. Following that small purchase shows how actor state, durable communication, and realtime reads fit together in one service.
 

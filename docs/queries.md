@@ -1,6 +1,6 @@
 # Queries and realtime
 
-Actors give each product a place to enforce its own stock rules. A storefront also needs a catalog spanning many products: which Hiking Boots are available, and how much stock remains? Named queries answer those questions with SQL over actor state, while keeping writes inside actions.
+**TL;DR:** Build catalogs and other views across actors with read-only SQL, then watch those views for changes. Queries see the current logical state after actor upgrades. Watches send an initial result and changed results, coalescing refreshes to at most once per 50 milliseconds; they deliver current state rather than every intermediate change.
 
 Register named queries in the service's `queries` map. Queries run synchronously as trusted application code and receive a read-only connection:
 

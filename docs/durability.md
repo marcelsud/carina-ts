@@ -1,6 +1,6 @@
 # Durability and concurrency
 
-Carina uses SQLite WAL with `synchronous=FULL`. A successful gateway reply is released after the action's durable commit.
+**TL;DR:** Share durable commit costs under concurrent load while isolating action failures with savepoints. Groups contain up to 64 actions; replies wait for the outer commit, and a failed outer commit rejects the whole group. SQLite uses WAL with `synchronous=FULL`. The queue holds up to 1,024 waiting mutations, returning HTTP `503` when full. Retry uncertain outcomes with the same idempotency key.
 
 When a client hears that it successfully reserved the last Hiking Boot, that reply should mean the reservation survived the commit. This is also why a lost reply needs an idempotency key: the reservation may already be stored even if the client never received the response.
 

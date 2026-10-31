@@ -1,6 +1,6 @@
 # Build and operate
 
-Carina's CLI runs services in development and compiles standalone executables. Each service can register multiple actor types and named queries.
+**TL;DR:** Package multiple actor types and queries into one standalone service executable for the build host. Bun 1.4.4 or newer is needed for development and builds; the executable embeds its runtime. Preserve the data directory between releases, set `CARINA_ACCESS_KEY` explicitly, and stop the service before inspection, message maintenance, migrations, or backups.
 
 For the shop, the product and order actors belong to one deployable service. Building packages their code and runtime together; the data directory holds the durable state between runs. That gives deployment two concrete pieces to manage: the executable you release and the data you preserve.
 

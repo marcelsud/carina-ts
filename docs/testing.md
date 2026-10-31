@@ -1,6 +1,6 @@
 # Testing and performance
 
-For a stock service, speed is useful only if the stock stays correct. The checks exercise both sides: competing orders must respect inventory, and acknowledged work must survive recovery. Benchmarks verify the resulting state as well as measuring how long the work took.
+**TL;DR:** Check correctness, crash recovery, and performance before relying on a release. Benchmarks verify final state and measure both sequential durable calls and concurrent HTTP traffic, which benefits from group commits. Results depend on the host and filesystem; tune regression budgets for your environment. Integration tests need temporary localhost ports.
 
 Run checks from the repository root:
 

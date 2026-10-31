@@ -1,6 +1,6 @@
 # Upgrades and migrations
 
-The first version of the shop only needs a product's name and stock. Later, the catalog needs categories. New products can include that field immediately, but the Hiking Boots already stored in SQLite still have the old shape. An upgrade describes how to bring those existing products into the current model while preserving their names and stock.
+**TL;DR:** Evolve your data model while keeping existing actors usable. Pure, synchronous upgrade steps give actions and queries the current state shape before every row has been rewritten; successful actions persist upgraded state. Keep published steps stable and append new ones. Stop the service and run `migrate` to convert all rows or apply explicit storage changes atomically.
 
 Carina applies that description when it reads an older actor. Actions and queries can use the current schema while stored rows move forward incrementally. This keeps the compatibility rule in one place, rather than repeating missing-field checks throughout the application.
 

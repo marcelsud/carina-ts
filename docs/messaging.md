@@ -1,6 +1,6 @@
 # Actor-to-actor communication
 
-Use `send` inside an action to buffer a durable message to another actor in the service.
+**TL;DR:** Coordinate actors within a service through messages that survive restarts. The sender commits its state and outgoing messages together; the receiver commits its effects and completion marker together. Sending is asynchronous: observe the outcome through a query or watch. Failed deliveries can be inspected and retried. External effects need the external system's idempotency support.
 
 An order needs a product to reserve stock, and it needs to remember that it asked. Recording the order's `reserving` status and its outgoing message in one transaction keeps those facts together. If the service stops after that commit, the request is still in SQLite, ready for delivery after restart.
 
