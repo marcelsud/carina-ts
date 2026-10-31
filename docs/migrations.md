@@ -148,7 +148,22 @@ A ProductV1 row for Hiking Boot might contain:
 }
 ```
 
-Queries through `actors` see the logical ProductV4 state after all three steps:
+When a named query executes SQL with `FROM actors`, SQLite reads through the `actors` view. That view exposes stored actor rows using the service's current state schema. For example, a catalog query can ask for available stock in the `general` category:
+
+```sql
+SELECT key, json_extract(state, '$.inventory.available') AS available
+FROM actors
+WHERE type = 'product'
+  AND json_extract(state, '$.category') = 'general';
+```
+
+Whenever SQL evaluates the view's `state` column for this ProductV1 row, the following happens:
+
+1. SQLite reads its JSON state and stored version, `0`, from `actor_states`.
+2. The view calls `carina_state` with the actor's type, key, version, and JSON. Carina finds the product's upgrade chain and runs the three missing steps: add the category, calculate nested inventory, and calculate quantity pricing. Each step decodes its input with its source schema and validates and encodes its output with its destination schema.
+3. The function returns the resulting ProductV4 JSON as the view's `state` value. SQL expressions that filter, sort, aggregate, or select fields from `state` therefore operate on this upgraded value.
+
+For the Hiking Boot, that value is:
 
 ```json
 {
@@ -165,9 +180,9 @@ Queries through `actors` see the logical ProductV4 state after all three steps:
 }
 ```
 
-A filter on `category = 'general'` includes this row while it is still stored as ProductV1. SQL expressions such as `json_extract(state, '$.inventory.available')` also see the calculated, nested value. The transformations run before SQL filtering, sorting, and aggregation, so a catalog can query one current shape across products from different releases.
+The catalog query includes this product because its upgraded category is `general`, and returns `8` for `available`. Both values were calculated during the read, even though the stored ProductV1 JSON has neither `category` nor `inventory`. The same query works across products stored by different releases because it evaluates their current shapes.
 
-The read connection implements this through a connection-local `TEMP VIEW actors` backed by the `carina_state` SQL function. Reading leaves stored rows unchanged. The next successful action persists the upgraded state and version with its own changes; an action that fails leaves the stored row at its previous version.
+The read connection creates `actors` as a connection-local `TEMP VIEW` backed by the `carina_state` SQL function. This transformation happens as part of the SQL read and leaves the stored JSON and version unchanged. The next successful action persists the upgraded state and version with its own changes; an action that fails leaves the stored row at its previous version.
 
 A product that is only read continues to run its missing upgrades during reads. Running `migrate` applies upgrades to all rows in one transaction, completing the stored conversion at a chosen maintenance time. If any row fails, such as one with inconsistent reservations, that migration transaction rolls back its changes.
 
