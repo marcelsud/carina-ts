@@ -79,7 +79,7 @@ const nestInventory = upgrade(ProductV2, ProductV3, (state) => {
 
 Ten Hiking Boots with two reserved become eight available and two reserved. The old flat fields are replaced by the nested structure. If a record has more reservations than total stock, its upgrade fails with the actor identity and failed step so you can investigate the data.
 
-### Calculate prices for quantity tiers
+### Update fields based on other fields
 
 The third change introduces quantity pricing. The shop keeps the original unit price for regular purchases and gives orders of at least ten units a 10% discount. The discounted price is rounded to the nearest cent once during this transformation.
 
