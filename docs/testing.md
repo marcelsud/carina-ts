@@ -1,5 +1,7 @@
 # Testing and performance
 
+For a stock service, speed is useful only if the stock stays correct. The checks exercise both sides: competing orders must respect inventory, and acknowledged work must survive recovery. Benchmarks verify the resulting state as well as measuring how long the work took.
+
 Run checks from the repository root:
 
 ```sh
@@ -14,6 +16,8 @@ Tests cover 1,000 concurrent reservations, state and send rollback, idempotency,
 [Type checks](../tests/types.ts) cover invalid state assignments, inputs, sends, replies, and client access to internal actions.
 
 ## Benchmark workloads
+
+The way callers submit work changes the result. A warehouse script that awaits one restock before sending the next sees individual commit latency. Many customers checking out at once can share group commits. Measuring both helps you choose a result that resembles your application's traffic.
 
 The benchmark records local mutation throughput and latency, startup time, and watch refresh time with 1, 10, and 100 subscriptions in [benchmarks/local.json](../benchmarks/local.json). These are measurements of the execution host and its temporary filesystem. The top-level throughput and latency describe sequential direct runtime calls, each with its own durable commit. The `concurrent` result measures acknowledged HTTP actions with up to 64 clients, which exercises group commit. Both workloads verify final stock, and both use WAL with `synchronous=FULL`.
 

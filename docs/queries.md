@@ -1,5 +1,7 @@
 # Queries and realtime
 
+Actors give each product a place to enforce its own stock rules. A storefront also needs a catalog spanning many products: which Hiking Boots are available, and how much stock remains? Named queries answer those questions with SQL over actor state, while keeping writes inside actions.
+
 Register named queries in the service's `queries` map. Queries run synchronously as trusted application code and receive a read-only connection:
 
 ```typescript
@@ -22,6 +24,8 @@ HTTP requests use a Bearer token. WebSockets authenticate with `{ op: "auth", ac
 
 ## Query and watch
 
+Use a query when you need a snapshot, such as loading the catalog. Use a watch when the screen should follow changes, such as an order waiting for its reservation result. Both use the same query definition, so the initial read and subsequent updates follow the same filtering and validation rules.
+
 Using the [typed shop client](client.md):
 
 ```typescript
@@ -33,6 +37,8 @@ for await (const rows of shop.queries.catalog.watch({ minStock: 0 })) {
 ```
 
 The client uses one WebSocket per watch.
+
+After the example order reserves two Hiking Boots, a catalog watch can show stock changing from 10 to 8. It delivers current results as they change; coalescing allows a busy screen to catch up to the latest state without displaying every intermediate result.
 
 ## Logical state
 

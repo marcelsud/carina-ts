@@ -2,6 +2,8 @@
 
 An actor owns state validated by an Effect Schema. Its type and key identify an instance: `product` and `sku-1`, for example. Actions receive mutable state and validated input, then return a JSON reply.
 
+For the Hiking Boot, the product actor is the place that decides whether a reservation can reduce stock. Every request for that product goes through the same rules. When two orders compete for the last pair, their reservation actions run sequentially against the updated state, so each action checks the stock left by the previous one.
+
 ## Define an actor
 
 ```typescript
@@ -18,6 +20,8 @@ const product = actor(State)({
   },
 });
 ```
+
+Here, a delivery of new stock becomes a `restock` action. The input schema requires a positive quantity, and the state schema requires stock to remain nonnegative. Keeping those rules beside the action makes the contract visible to both the application author and the typed client.
 
 The two-stage `actor(State)({ ... })` form lets TypeScript infer mutable state inside nested action callbacks. The single-object `actor({ state: State, ... })` form is accepted too; use the two-stage form when you want inferred state checking.
 

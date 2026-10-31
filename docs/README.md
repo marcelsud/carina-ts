@@ -2,6 +2,10 @@
 
 Carina runs typed actors, durable messages, and reactive SQL queries in one executable backed by one SQLite database. An actor is identified by its type and key, owns validated state, and exposes actions that change that state.
 
+Consider a shop selling a Hiking Boot. The product tracks available stock, an order tracks a customer's reservation, and the storefront needs to show both as they change. Carina gives each part a place: actors own the business rules, durable messages carry work between them, and queries provide the views clients need.
+
+As the shop grows, its data model can grow with it. Adding a category to products becomes an explicit upgrade step, and existing products remain readable through the current schema. The same service executable contains the application and the rules for interpreting its stored data.
+
 Start with the [quickstart](quickstart.md) to run a shop where an order reserves stock from a product actor and a client watches the result.
 
 ## General

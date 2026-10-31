@@ -2,6 +2,8 @@
 
 Carina's CLI runs services in development and compiles standalone executables. Each service can register multiple actor types and named queries.
 
+For the shop, the product and order actors belong to one deployable service. Building packages their code and runtime together; the data directory holds the durable state between runs. That gives deployment two concrete pieces to manage: the executable you release and the data you preserve.
+
 ## Develop
 
 From the repository root, with Bun 1.4.4 or newer:
@@ -25,6 +27,8 @@ A directory resolves to its `index.ts`; a file can also be passed directly. The 
 The server binds to `127.0.0.1:7070`. Set `--host` and `--port` as needed, and put network deployments behind an HTTPS reverse proxy. The implementation uses Bun's HTTP, WebSocket, and SQLite APIs, plus Effect Schema for validation.
 
 ## Maintenance
+
+When investigating a stuck reservation, inspect the order and its messages to find where work stopped. Before a release that changes stored data, take a backup and run the migration command. These operations use the same service definitions as normal execution, keeping the operational tools aligned with the application.
 
 Stop the server before maintenance commands:
 

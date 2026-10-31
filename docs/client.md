@@ -1,6 +1,8 @@
 # TypeScript client
 
-The client derives actor methods, input types, replies, and queries from your service type. These snippets use the repository's [shop service](../examples/shop/index.ts); paths are relative to a client file in `examples/`.
+The client derives actor methods, input types, replies, and queries from your service type. When you change the shop's public action inputs, TypeScript can point out client calls that need to change too. Schema validation at the service boundary checks the values that actually arrive.
+
+These snippets use the repository's [shop service](../examples/shop/index.ts); paths are relative to a client file in `examples/`.
 
 ## Connect
 
@@ -35,6 +37,8 @@ console.log(reply.stock);
 Creation accepts the actor's initial state. Instance methods expose public actions. The runtime reserves internal actions for [actor messages](messaging.md).
 
 ## Retry requests
+
+Suppose a stock delivery is recorded successfully, but the connection drops before the warehouse receives the reply. Retrying that delivery with a fresh key would risk adding the stock twice. Reusing `restock-delivery-1` lets the service return its stored reply for the same operation and input.
 
 The client generates an idempotency key when one is omitted and retains it across its network retries. The `retries` client option defaults to 2. Use an explicit stable key when the same logical operation can be retried through a new client call or after an application restart.
 
