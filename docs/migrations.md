@@ -4,7 +4,7 @@
 
 Carina applies that description when it reads an older actor. Actions and queries can use the current schema while stored rows move forward incrementally. This keeps the compatibility rule in one place, rather than repeating missing-field checks throughout the application.
 
-## Add a category
+## Use a transformation function to add or update fields
 
 Append pure, synchronous steps to an actor's `upgrades` array:
 
